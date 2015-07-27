@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Test Web Page</title>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.8.0/lodash.min.js"></script>
+
+    <style>
+        html, body {
+            height: 100%;
+        }
+        #error { color: red}
+    </style>
+
+</head>
+<body>
+
+    <div style="padding-top:100px">
+        <a id="btnScriptNotify" href="#">Script Notify</a> -
+        <a id="btnWebAllowed" href="#">WebAllowed</a>
+    </div>
+
+    <div id="error"></div>
+
+    <h3 style="padding-top: 50px;">Console</h3>
+    <div id="log"></div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            
+            $("#btnScriptNotify").click(function () {
+                var cmd = { name: 'test'};
+                log("sending command via script notify: " + JSON.stringify(cmd));
+                window.external.notify(JSON.stringify(cmd));
+            });
+
+            $("#btnWebAllowed").click(function () {
+                log("sending command via web allowed");
+                //neither of the following 3 lines of code work
+                window.test.DoSomething();
+                //window.notification.DoSomething();
+                //UniversalWindowsAPIs.DoSomething();
+            });
+
+        });
+
+        function log(text) {
+            $("#log").append("<p>" + text + "</p>");
+        }
+
+        var gOldOnError = window.onerror;
+        // Override previous handler.
+        window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
+            if (gOldOnError)
+                // Call previous handler.
+                return gOldOnError(errorMsg, url, lineNumber);
+
+            $("#error").html("error occurred on line " + lineNumber + ". Details: " + errorMsg);
+            return false;
+        }
+
+    </script>
+
+</body>
+</html>
