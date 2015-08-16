@@ -147,6 +147,12 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebAllowed.Api\WebAllowed.Api.csproj">
+      <Project>{b86150bf-ffc6-412d-8eec-7ea64e9acc95}</Project>
+      <Name>WebAllowed.Api</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

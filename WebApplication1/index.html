@@ -29,7 +29,7 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            
+
             $("#btnScriptNotify").click(function () {
                 var cmd = { name: 'test'};
                 log("sending command via script notify: " + JSON.stringify(cmd));
@@ -37,11 +37,25 @@
             });
 
             $("#btnWebAllowed").click(function () {
+
                 log("sending command via web allowed");
-                //neither of the following 3 lines of code work
-                window.test.DoSomething();
-                //window.notification.DoSomething();
-                //UniversalWindowsAPIs.DoSomething();
+
+                if (test) {
+
+                    var m = new WebAllowed.Api.Messenger();
+
+                    log(test);
+                    log(test.prototype);
+                    log(JSON.stringify(test));
+                    log(JSON.stringify(window.test));
+                    log(m);
+                    log(m.prototype);
+
+                    console.log(m.GetVal());
+                    m.ProcessMessage();
+                } else {
+                    log('could not locate test');
+                }
             });
 
         });
